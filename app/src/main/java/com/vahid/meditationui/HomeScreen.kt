@@ -243,58 +243,52 @@ fun FeatureItem(
     ) {
         val width = constraints.maxWidth
         val height = constraints.maxHeight
-        //Medium Colored path
-        val mediumColoredPoint = Offset(0f, height * 0.3f)
-        val mediumColoredPoint2 = Offset(width * 0.1f, height * 0.35f)
-        val mediumColoredPoint3 = Offset(width * 0.4f, height * 0.5f)
-        val mediumColoredPoint4 = Offset(width * 0.75f, height * 0.7f)
-        val mediumColoredPoint5 = Offset(width * 1.4f, height.toFloat())
 
-        val mediumColorPath = Path().apply {
-            moveTo(mediumColoredPoint.x, mediumColoredPoint.y)
-            standardQuadFromTo(
-                mediumColoredPoint, mediumColoredPoint2
-            )
-            standardQuadFromTo(
-                mediumColoredPoint2, mediumColoredPoint3
-            )
-            standardQuadFromTo(
-                mediumColoredPoint3, mediumColoredPoint4
-            )
+        // Medium colored path
+        val mediumColoredPoint1 = Offset(0f, height * 0.3f)
+        val mediumColoredPoint2 = Offset(width * 0.1f, height * 0.35f)
+        val mediumColoredPoint3 = Offset(width * 0.4f, height * 0.05f)
+        val mediumColoredPoint4 = Offset(width * 0.75f, height * 0.7f)
+        val mediumColoredPoint5 = Offset(width * 1.4f, -height.toFloat())
+
+        val mediumColoredPath = Path().apply {
+            moveTo(mediumColoredPoint1.x, mediumColoredPoint1.y)
+            standardQuadFromTo(mediumColoredPoint1, mediumColoredPoint2)
+            standardQuadFromTo(mediumColoredPoint2, mediumColoredPoint3)
+            standardQuadFromTo(mediumColoredPoint3, mediumColoredPoint4)
             standardQuadFromTo(mediumColoredPoint4, mediumColoredPoint5)
             lineTo(width.toFloat() + 100f, height.toFloat() + 100f)
             lineTo(-100f, height.toFloat() + 100f)
             close()
         }
-        val lightColoredPoint = Offset(0f, height * 0.35f)
-        val lightColoredPoint2 = Offset(width * 0.1f, height * 0.35f)
-        val lightColoredPoint3 = Offset(width * 0.4f, height * 0.5f)
-        val lightColoredPoint4 = Offset(width * 0.75f, height * 0.7f)
-        val lightColoredPoint5 = Offset(width * 1.4f, height.toFloat())
 
-        val lightColorPath = Path().apply {
-            moveTo(lightColoredPoint.x, lightColoredPoint.y)
-            standardQuadFromTo(
-                lightColoredPoint, lightColoredPoint2
-            )
-            standardQuadFromTo(
-                lightColoredPoint2, lightColoredPoint3
-            )
-            standardQuadFromTo(
-                lightColoredPoint3, lightColoredPoint4
-            )
-            standardQuadFromTo(lightColoredPoint4, lightColoredPoint5)
+        // Light colored path
+        val lightPoint1 = Offset(0f, height * 0.35f)
+        val lightPoint2 = Offset(width * 0.1f, height * 0.4f)
+        val lightPoint3 = Offset(width * 0.3f, height * 0.35f)
+        val lightPoint4 = Offset(width * 0.65f, height.toFloat())
+        val lightPoint5 = Offset(width * 1.4f, -height.toFloat() / 3f)
+
+        val lightColoredPath = Path().apply {
+            moveTo(lightPoint1.x, lightPoint1.y)
+            standardQuadFromTo(lightPoint1, lightPoint2)
+            standardQuadFromTo(lightPoint2, lightPoint3)
+            standardQuadFromTo(lightPoint3, lightPoint4)
+            standardQuadFromTo(lightPoint4, lightPoint5)
             lineTo(width.toFloat() + 100f, height.toFloat() + 100f)
             lineTo(-100f, height.toFloat() + 100f)
             close()
         }
-        Canvas(modifier = Modifier.fillMaxSize()) {
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
             drawPath(
-                path = mediumColorPath,
+                path = mediumColoredPath,
                 color = feature.mediumColor
             )
             drawPath(
-                path = lightColorPath,
+                path = lightColoredPath,
                 color = feature.lightColor
             )
         }
@@ -310,11 +304,10 @@ fun FeatureItem(
                 modifier = Modifier.align(Alignment.TopStart)
             )
             Icon(
-                painter = painterResource(id = feature.iconId), contentDescription = feature.title,
-                modifier = Modifier.align(
-                    Alignment.BottomStart,
-                ),
-                tint = Color.White
+                painter = painterResource(id = feature.iconId),
+                contentDescription = feature.title,
+                tint = Color.White,
+                modifier = Modifier.align(Alignment.BottomStart)
             )
             Text(
                 text = "Start",
@@ -323,7 +316,7 @@ fun FeatureItem(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .clickable {
-
+                        // Handle the click
                     }
                     .align(Alignment.BottomEnd)
                     .clip(RoundedCornerShape(10.dp))
